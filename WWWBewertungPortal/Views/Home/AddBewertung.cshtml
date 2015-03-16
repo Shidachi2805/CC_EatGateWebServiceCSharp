@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddBewertung</title>
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+ 
+</head>
+<body>
+    <ul id="bewertung"></ul>
+    <div>
+        <form id="saveBewertungsForm" method="post">
+            <h3>Create a new Voting</h3>
+            <p>
+                <label for="bewertungsUeberschrift">Überschrift: </label>
+                <input type="text" name="Ueberschrift" id="bewertungsUeberschrift"/>
+            </p>
+            <p>
+                <label for="bewertungsInhalt">Inhalt: </label>
+                <textarea rows="4" cols="50" name="Inhalt" id="bewertungsInhalt"></textarea>
+            </p>
+            <p>
+                <label for="bewertungsDatum">Erstellungsdatum: </label>
+                <input type="date" name="Erstelltlungdatum" id="bewertungsDatum" />
+            </p>
+            <p>
+                <label for="bewertungsVoting">Voting: </label>
+                <input type="number" name="Voting" id="bewertungsVoting" min="0" max="5" step="0.5"/>
+            </p>
+            <input type="hidden" name="idLok" value="1" />
+            <input type="hidden" name="idBenutzer" value="1"/>
+            <input type="hidden" name="Service" value="AddBewertung" />
+            <input type="button" id="saveBewertung" value="Save" />
+
+            </form>
+</div>
+    <script type="text/javascript">
+    $('#saveBewertung').click(function () {
+        $.post("../api/WWWBewertungPortal",
+              $("#saveBewertungsForm").serialize(),
+              function (value) {
+                  $('#bewertung').append('<li>' + value.Ueberschrift + ' ' + value.Voting  +  '</li>');
+              },
+                "json"
+              );
+    });
+    </script>
+
+</body>
+</html>

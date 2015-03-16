@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WWWBewertungsModell.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="WWWBewertungsModellStoreContainer">
+    <EntitySet Name="Tab_BenutzerSet" EntityType="WWWBewertungsModell.Store.Tab_BenutzerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tab_LokationSet" EntityType="WWWBewertungsModell.Store.Tab_LokationSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tab_Lokation_PhotoSet" EntityType="WWWBewertungsModell.Store.Tab_Lokation_PhotoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tab_KommentarSet" EntityType="WWWBewertungsModell.Store.Tab_KommentarSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tab_BewertungSet" EntityType="WWWBewertungsModell.Store.Tab_BewertungSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="Tab_LokationTab_Bewertung" Association="WWWBewertungsModell.Store.Tab_LokationTab_Bewertung">
+      <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
+      <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+    </AssociationSet>
+    <AssociationSet Name="Tab_BenutzerTab_Bewertung" Association="WWWBewertungsModell.Store.Tab_BenutzerTab_Bewertung">
+      <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
+      <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+    </AssociationSet>
+    <AssociationSet Name="Tab_BewertungTab_Lokation_Photo" Association="WWWBewertungsModell.Store.Tab_BewertungTab_Lokation_Photo">
+      <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+      <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
+    </AssociationSet>
+    <AssociationSet Name="Tab_BenutzerTab_Kommentar" Association="WWWBewertungsModell.Store.Tab_BenutzerTab_Kommentar">
+      <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
+      <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
+    </AssociationSet>
+    <AssociationSet Name="Tab_BewertungTab_Kommentar" Association="WWWBewertungsModell.Store.Tab_BewertungTab_Kommentar">
+      <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+      <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Tab_BenutzerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Vorname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nickname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Passwort" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Geschlecht" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AvartarID" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tab_LokationSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lat" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lng" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Place_id" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tab_Lokation_PhotoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tab_Bewertung_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tab_KommentarSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Datum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tab_Benutzer_Id" Type="int" Nullable="false" />
+    <Property Name="Tab_Bewertung_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tab_BewertungSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ueberschrift" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Inhalt" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Erstelltlungdatum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Voting" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tab_Lokation_Id" Type="int" Nullable="false" />
+    <Property Name="Tab_Benutzer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="Tab_LokationTab_Bewertung">
+    <End Role="Tab_Lokation" Type="WWWBewertungsModell.Store.Tab_LokationSet" Multiplicity="1" />
+    <End Role="Tab_Bewertung" Type="WWWBewertungsModell.Store.Tab_BewertungSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Lokation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_Bewertung">
+        <PropertyRef Name="Tab_Lokation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tab_BenutzerTab_Bewertung">
+    <End Role="Tab_Benutzer" Type="WWWBewertungsModell.Store.Tab_BenutzerSet" Multiplicity="1" />
+    <End Role="Tab_Bewertung" Type="WWWBewertungsModell.Store.Tab_BewertungSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Benutzer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_Bewertung">
+        <PropertyRef Name="Tab_Benutzer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tab_BewertungTab_Lokation_Photo">
+    <End Role="Tab_Bewertung" Type="WWWBewertungsModell.Store.Tab_BewertungSet" Multiplicity="1" />
+    <End Role="Tab_Lokation_Photo" Type="WWWBewertungsModell.Store.Tab_Lokation_PhotoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Bewertung">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_Lokation_Photo">
+        <PropertyRef Name="Tab_Bewertung_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tab_BenutzerTab_Kommentar">
+    <End Role="Tab_Benutzer" Type="WWWBewertungsModell.Store.Tab_BenutzerSet" Multiplicity="1" />
+    <End Role="Tab_Kommentar" Type="WWWBewertungsModell.Store.Tab_KommentarSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Benutzer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_Kommentar">
+        <PropertyRef Name="Tab_Benutzer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tab_BewertungTab_Kommentar">
+    <End Role="Tab_Bewertung" Type="WWWBewertungsModell.Store.Tab_BewertungSet" Multiplicity="1" />
+    <End Role="Tab_Kommentar" Type="WWWBewertungsModell.Store.Tab_KommentarSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Bewertung">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_Kommentar">
+        <PropertyRef Name="Tab_Bewertung_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="WWWBewertungsModell" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="WWWBewertungsModellContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tab_BenutzerSet" EntityType="WWWBewertungsModell.Tab_Benutzer" />
+          <EntitySet Name="Tab_LokationSet" EntityType="WWWBewertungsModell.Tab_Lokation" />
+          <EntitySet Name="Tab_Lokation_PhotoSet" EntityType="WWWBewertungsModell.Tab_Lokation_Photo" />
+          <EntitySet Name="Tab_KommentarSet" EntityType="WWWBewertungsModell.Tab_Kommentar" />
+          <EntitySet Name="Tab_BewertungSet" EntityType="WWWBewertungsModell.Tab_Bewertung" />
+          <AssociationSet Name="Tab_LokationTab_Bewertung" Association="WWWBewertungsModell.Tab_LokationTab_Bewertung">
+            <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
+            <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+          </AssociationSet>
+          <AssociationSet Name="Tab_BenutzerTab_Bewertung" Association="WWWBewertungsModell.Tab_BenutzerTab_Bewertung">
+            <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
+            <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+          </AssociationSet>
+          <AssociationSet Name="Tab_BewertungTab_Lokation_Photo" Association="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo">
+            <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+            <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
+          </AssociationSet>
+          <AssociationSet Name="Tab_BenutzerTab_Kommentar" Association="WWWBewertungsModell.Tab_BenutzerTab_Kommentar">
+            <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
+            <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
+          </AssociationSet>
+          <AssociationSet Name="Tab_BewertungTab_Kommentar" Association="WWWBewertungsModell.Tab_BewertungTab_Kommentar">
+            <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
+            <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tab_Benutzer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Nickname" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Passwort" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AvartarID" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Tab_Bewertung" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Bewertung" FromRole="Tab_Benutzer" ToRole="Tab_Bewertung" />
+          <NavigationProperty Name="Tab_Kommentar" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Kommentar" FromRole="Tab_Benutzer" ToRole="Tab_Kommentar" />
+        </EntityType>
+        <EntityType Name="Tab_Lokation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Adresse" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Tab_Bewertung" Relationship="WWWBewertungsModell.Tab_LokationTab_Bewertung" FromRole="Tab_Lokation" ToRole="Tab_Bewertung" />
+          <Property Name="Lat" Type="String" Nullable="false" />
+          <Property Name="Lng" Type="String" Nullable="false" />
+          <Property Name="Place_id" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tab_Bewertung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ueberschrift" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Inhalt" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Erstelltlungdatum" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Voting" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Tab_Lokation" Relationship="WWWBewertungsModell.Tab_LokationTab_Bewertung" FromRole="Tab_Bewertung" ToRole="Tab_Lokation" />
+          <NavigationProperty Name="Tab_Benutzer" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Bewertung" FromRole="Tab_Bewertung" ToRole="Tab_Benutzer" />
+          <NavigationProperty Name="Tab_Lokation_Photo" Relationship="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" FromRole="Tab_Bewertung" ToRole="Tab_Lokation_Photo" />
+          <NavigationProperty Name="Tab_Kommentar" Relationship="WWWBewertungsModell.Tab_BewertungTab_Kommentar" FromRole="Tab_Bewertung" ToRole="Tab_Kommentar" />
+        </EntityType>
+        <EntityType Name="Tab_Lokation_Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Tab_Bewertung" Relationship="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" FromRole="Tab_Lokation_Photo" ToRole="Tab_Bewertung" />
+        </EntityType>
+        <EntityType Name="Tab_Kommentar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Tab_Benutzer" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Kommentar" FromRole="Tab_Kommentar" ToRole="Tab_Benutzer" />
+          <NavigationProperty Name="Tab_Bewertung" Relationship="WWWBewertungsModell.Tab_BewertungTab_Kommentar" FromRole="Tab_Kommentar" ToRole="Tab_Bewertung" />
+        </EntityType>
+        <Association Name="Tab_LokationTab_Bewertung">
+          <End Type="WWWBewertungsModell.Tab_Lokation" Role="Tab_Lokation" Multiplicity="1" />
+          <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="*" />
+        </Association>
+        <Association Name="Tab_BenutzerTab_Bewertung">
+          <End Type="WWWBewertungsModell.Tab_Benutzer" Role="Tab_Benutzer" Multiplicity="1" />
+          <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="*" />
+        </Association>
+        <Association Name="Tab_BewertungTab_Lokation_Photo">
+          <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="1" />
+          <End Type="WWWBewertungsModell.Tab_Lokation_Photo" Role="Tab_Lokation_Photo" Multiplicity="*" />
+        </Association>
+        <Association Name="Tab_BenutzerTab_Kommentar">
+          <End Type="WWWBewertungsModell.Tab_Benutzer" Role="Tab_Benutzer" Multiplicity="1" />
+          <End Type="WWWBewertungsModell.Tab_Kommentar" Role="Tab_Kommentar" Multiplicity="*" />
+        </Association>
+        <Association Name="Tab_BewertungTab_Kommentar">
+          <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="1" />
+          <End Type="WWWBewertungsModell.Tab_Kommentar" Role="Tab_Kommentar" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WWWBewertungsModellStoreContainer" CdmEntityContainer="WWWBewertungsModellContainer">
+    <EntitySetMapping Name="Tab_BenutzerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_Benutzer)">
+        <MappingFragment StoreEntitySet="Tab_BenutzerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+          <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+          <ScalarProperty Name="AvartarID" ColumnName="AvartarID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tab_LokationSet">
+      <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_Lokation)">
+        <MappingFragment StoreEntitySet="Tab_LokationSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Place_id" ColumnName="Place_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tab_Lokation_PhotoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_Lokation_Photo)">
+        <MappingFragment StoreEntitySet="Tab_Lokation_PhotoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tab_KommentarSet">
+      <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_Kommentar)">
+        <MappingFragment StoreEntitySet="Tab_KommentarSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tab_BewertungSet">
+      <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_Bewertung)">
+        <MappingFragment StoreEntitySet="Tab_BewertungSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ueberschrift" ColumnName="Ueberschrift" />
+          <ScalarProperty Name="Inhalt" ColumnName="Inhalt" />
+          <ScalarProperty Name="Erstelltlungdatum" ColumnName="Erstelltlungdatum" />
+          <ScalarProperty Name="Voting" ColumnName="Voting" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Tab_LokationTab_Bewertung" TypeName="WWWBewertungsModell.Tab_LokationTab_Bewertung" StoreEntitySet="Tab_BewertungSet">
+      <EndProperty Name="Tab_Lokation">
+        <ScalarProperty Name="Id" ColumnName="Tab_Lokation_Id" />
+      </EndProperty>
+      <EndProperty Name="Tab_Bewertung">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Tab_BenutzerTab_Bewertung" TypeName="WWWBewertungsModell.Tab_BenutzerTab_Bewertung" StoreEntitySet="Tab_BewertungSet">
+      <EndProperty Name="Tab_Benutzer">
+        <ScalarProperty Name="Id" ColumnName="Tab_Benutzer_Id" />
+      </EndProperty>
+      <EndProperty Name="Tab_Bewertung">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Tab_BewertungTab_Lokation_Photo" TypeName="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" StoreEntitySet="Tab_Lokation_PhotoSet">
+      <EndProperty Name="Tab_Bewertung">
+        <ScalarProperty Name="Id" ColumnName="Tab_Bewertung_Id" />
+      </EndProperty>
+      <EndProperty Name="Tab_Lokation_Photo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Tab_BenutzerTab_Kommentar" TypeName="WWWBewertungsModell.Tab_BenutzerTab_Kommentar" StoreEntitySet="Tab_KommentarSet">
+      <EndProperty Name="Tab_Benutzer">
+        <ScalarProperty Name="Id" ColumnName="Tab_Benutzer_Id" />
+      </EndProperty>
+      <EndProperty Name="Tab_Kommentar">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Tab_BewertungTab_Kommentar" TypeName="WWWBewertungsModell.Tab_BewertungTab_Kommentar" StoreEntitySet="Tab_KommentarSet">
+      <EndProperty Name="Tab_Bewertung">
+        <ScalarProperty Name="Id" ColumnName="Tab_Bewertung_Id" />
+      </EndProperty>
+      <EndProperty Name="Tab_Kommentar">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,63 @@
+﻿<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
+</script>
+<div id="body">
+    <ul id="benutzer"></ul>
+    <form id="saveBenutzerForm" method="post">
+        <h3>Create a new User</h3>
+        <p>
+            <label for="benutzerVorname">Vorname: </label>
+            <input type="text" name="Vorname" />
+        </p>
+        <p>
+            <label for="benutzerNachname">Nachname: </label>
+            <input type="text" name="Name" />
+        </p>
+        <p>
+            <label for="benutzerNickname">Nickname: </label>
+            <input type="text" name="Nickname" />
+        </p>
+        <p>
+            <label for="benutzerEmail">Email: </label>
+            <input type="text" name="Email" />
+        </p>
+        <p>
+            <label for="benutzerPasswort">Passwort: </label>
+            <input type="text" name="Passwort" />
+        </p>
+        <p>
+            <label for="benutzerGeschlecht">Geschlecht: </label>
+            <input type="text" name="Geschlecht" />
+        </p>
+        <p>
+            <label for="benutzerAvartarID">AvartarID: </label>
+            <input type="text" name="AvartarID" />
+        </p>
+        <input type="hidden" name="Service" value="AddBenutzer" />
+        <input type="button" id="saveBenutzer" value="Save" />
+    </form>
+    <div id="map"></div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#saveBenutzer').click(function ()
+        {
+            $.post("../api/WWWBewertungPortal",
+                  $("#saveBenutzerForm").serialize(),
+                  function (value) {
+                      $('#benutzer').append('<li>' + value.Name + '</li>');
+                  },
+                    "json"
+                  );
+        });
+        function InitializeMap() {
+            var latlng = new google.maps.LatLng(-34.397, 150.644);
+            var myOptions = {
+                zoom: 8,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        }
+        InitializeMap();
+    </script>
+}

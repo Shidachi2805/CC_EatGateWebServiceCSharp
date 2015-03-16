@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8624a67b7e747c3b65dde783a416e95" Name="Diagram1" ZoomLevel="108" >
+        <EntityTypeShape EntityType="WWWBewertungsModell.Tab_Benutzer" Width="1.5" PointX="1" PointY="0.5" />
+        <EntityTypeShape EntityType="WWWBewertungsModell.Tab_Lokation" Width="1.5" PointX="6.375" PointY="2.5" />
+        <EntityTypeShape EntityType="WWWBewertungsModell.Tab_Bewertung" Width="1.5" PointX="3.25" PointY="3" />
+        <EntityTypeShape EntityType="WWWBewertungsModell.Tab_Lokation_Photo" Width="1.875" PointX="6.375" PointY="0.5" />
+        <EntityTypeShape EntityType="WWWBewertungsModell.Tab_Kommentar" Width="2" PointX="3.125" PointY="0.5" />
+        <AssociationConnector Association="WWWBewertungsModell.Tab_LokationTab_Bewertung" />
+        <AssociationConnector Association="WWWBewertungsModell.Tab_BenutzerTab_Bewertung" />
+        <AssociationConnector Association="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" />
+        <AssociationConnector Association="WWWBewertungsModell.Tab_BenutzerTab_Kommentar" />
+        <AssociationConnector Association="WWWBewertungsModell.Tab_BewertungTab_Kommentar" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
