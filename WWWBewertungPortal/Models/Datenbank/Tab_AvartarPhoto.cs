@@ -12,12 +12,11 @@ namespace WWWBewertungPortal.Models.Datenbank
     using System;
     using System.Collections.Generic;
     
-    public partial class Tab_Kommentar
+    public partial class Tab_AvartarPhoto
     {
         public int Id { get; set; }
-        public string Datum { get; set; }
+        public string Uri { get; set; }
     
         public virtual Tab_Benutzer Tab_Benutzer { get; set; }
-        public virtual Tab_Bewertung Tab_Bewertung { get; set; }
     }
 }

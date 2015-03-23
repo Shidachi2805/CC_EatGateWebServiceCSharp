@@ -11,6 +11,7 @@
     <EntitySet Name="Tab_Lokation_PhotoSet" EntityType="WWWBewertungsModell.Store.Tab_Lokation_PhotoSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tab_KommentarSet" EntityType="WWWBewertungsModell.Store.Tab_KommentarSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tab_BewertungSet" EntityType="WWWBewertungsModell.Store.Tab_BewertungSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tab_AvartarPhotoSet" EntityType="WWWBewertungsModell.Store.Tab_AvartarPhotoSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="Tab_LokationTab_Bewertung" Association="WWWBewertungsModell.Store.Tab_LokationTab_Bewertung">
       <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
       <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
@@ -31,6 +32,10 @@
       <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
       <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
     </AssociationSet>
+    <AssociationSet Name="Tab_AvartarPhotoTab_Benutzer" Association="WWWBewertungsModell.Store.Tab_AvartarPhotoTab_Benutzer">
+      <End Role="Tab_AvartarPhoto" EntitySet="Tab_AvartarPhotoSet" />
+      <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Tab_BenutzerSet">
     <Key>
@@ -43,7 +48,6 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Passwort" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Geschlecht" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="AvartarID" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Tab_LokationSet">
     <Key>
@@ -83,6 +87,14 @@
     <Property Name="Erstelltlungdatum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Voting" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Tab_Lokation_Id" Type="int" Nullable="false" />
+    <Property Name="Tab_Benutzer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tab_AvartarPhotoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Tab_Benutzer_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="Tab_LokationTab_Bewertung">
@@ -145,6 +157,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="Tab_AvartarPhotoTab_Benutzer">
+    <End Role="Tab_AvartarPhoto" Type="WWWBewertungsModell.Store.Tab_AvartarPhotoSet" Multiplicity="*" />
+    <End Role="Tab_Benutzer" Type="WWWBewertungsModell.Store.Tab_BenutzerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Benutzer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_AvartarPhoto">
+        <PropertyRef Name="Tab_Benutzer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -175,6 +199,11 @@
             <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
             <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
           </AssociationSet>
+          <EntitySet Name="Tab_AvartarPhotoSet" EntityType="WWWBewertungsModell.Tab_AvartarPhoto" />
+          <AssociationSet Name="Tab_AvartarPhotoTab_Benutzer" Association="WWWBewertungsModell.Tab_AvartarPhotoTab_Benutzer">
+            <End Role="Tab_AvartarPhoto" EntitySet="Tab_AvartarPhotoSet" />
+            <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tab_Benutzer">
           <Key>
@@ -187,9 +216,9 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Passwort" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="AvartarID" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Tab_Bewertung" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Bewertung" FromRole="Tab_Benutzer" ToRole="Tab_Bewertung" />
           <NavigationProperty Name="Tab_Kommentar" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Kommentar" FromRole="Tab_Benutzer" ToRole="Tab_Kommentar" />
+          <NavigationProperty Name="Tab_AvartarPhoto" Relationship="WWWBewertungsModell.Tab_AvartarPhotoTab_Benutzer" FromRole="Tab_Benutzer" ToRole="Tab_AvartarPhoto" />
         </EntityType>
         <EntityType Name="Tab_Lokation">
           <Key>
@@ -263,6 +292,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tab_AvartarPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uri" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tab_Benutzer" Relationship="WWWBewertungsModell.Tab_AvartarPhotoTab_Benutzer" FromRole="Tab_AvartarPhoto" ToRole="Tab_Benutzer" />
+        </EntityType>
+        <Association Name="Tab_AvartarPhotoTab_Benutzer">
+          <End Type="WWWBewertungsModell.Tab_AvartarPhoto" Role="Tab_AvartarPhoto" Multiplicity="0..1" />
+          <End Type="WWWBewertungsModell.Tab_Benutzer" Role="Tab_Benutzer" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -279,7 +320,6 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Passwort" ColumnName="Passwort" />
           <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
-          <ScalarProperty Name="AvartarID" ColumnName="AvartarID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -323,6 +363,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Tab_AvartarPhotoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_AvartarPhoto)">
+        <MappingFragment StoreEntitySet="Tab_AvartarPhotoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Tab_LokationTab_Bewertung" TypeName="WWWBewertungsModell.Tab_LokationTab_Bewertung" StoreEntitySet="Tab_BewertungSet">
       <EndProperty Name="Tab_Lokation">
         <ScalarProperty Name="Id" ColumnName="Tab_Lokation_Id" />
@@ -352,6 +400,14 @@
         <ScalarProperty Name="Id" ColumnName="Tab_Bewertung_Id" />
       </EndProperty>
       <EndProperty Name="Tab_Kommentar">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Tab_AvartarPhotoTab_Benutzer" TypeName="WWWBewertungsModell.Tab_AvartarPhotoTab_Benutzer" StoreEntitySet="Tab_AvartarPhotoSet">
+      <EndProperty Name="Tab_Benutzer">
+        <ScalarProperty Name="Id" ColumnName="Tab_Benutzer_Id" />
+      </EndProperty>
+      <EndProperty Name="Tab_AvartarPhoto">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

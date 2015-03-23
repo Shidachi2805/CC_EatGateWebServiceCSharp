@@ -28,10 +28,7 @@
             <label for="benutzerGeschlecht">Geschlecht: </label>
             <input type="text" name="Geschlecht" />
         </p>
-        <p>
-            <label for="benutzerAvartarID">AvartarID: </label>
-            <input type="text" name="AvartarID" />
-        </p>
+              
         <input type="hidden" name="Service" value="AddBenutzer" />
         <input type="button" id="saveBenutzer" value="Save" />
     </form>
@@ -41,7 +38,8 @@
     <script type="text/javascript">
         $('#saveBenutzer').click(function ()
         {
-            $.post("../api/WWWBewertungPortal",
+            //Hier aufpasssen wenn projekt nicht veröffenlicht muss ../api/WWW...
+            $.post("api/WWWBewertungPortal",
                   $("#saveBenutzerForm").serialize(),
                   function (value) {
                       $('#benutzer').append('<li>' + value.Name + '</li>');

@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "AddLokation";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddLokation</title>
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+
+</head>
+<body>
+    <ul id="lokation"></ul>
+    <div>
+        <form id="saveLokationsForm" method="post">
+            <h3>Create a new Restaurant</h3>
+            <p>
+                <label for="lokationsName">Name: </label>
+                <input type="text" name="Name" id="lokationsName" />
+            </p>
+            <p>
+                <label for="lokationsAdresse">Adress: </label>
+                <input type="text" name="Adresse" id="lokationsAdresse" />
+            </p>
+            <p>
+                <label for="lokationsLat">Lat: </label>
+                <input type="text" name="Lat" id="lokationsLat" />
+            </p>
+            <p>
+                <label for="lokationsLng">Lng: </label>
+                <input type="text" name="Lng" id="lokationsLng" />
+            </p>
+            <p>
+                <label for="lokationsPlaceID">Place ID: </label>
+                <input type="text" name="Place_id" id="lokationsplaceid" />
+            </p>
+            <input type="hidden" name="Service" value="AddLokation" />
+            <input type="button" id="saveLokation" value="Save" />
+
+        </form>
+    </div>
+    <script type="text/javascript">
+        $('#saveLokation').click(function () {
+            //Hier aufpasssen wenn projekt nicht veröffenlicht muss ../api/WWW...
+        $.post("../api/WWWBewertungPortal",
+              $("#saveLokationsForm").serialize(),
+              function (value) {
+                  $('#lokation').append('<li>' + value.Name + ' ' + value.Lng + '</li>');
+              },
+                "json"
+              );
+    });
+    </script>
+</body>
+</html>

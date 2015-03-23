@@ -40,7 +40,8 @@
             </form>
 </div>
     <script type="text/javascript">
-    $('#saveBewertung').click(function () {
+        $('#saveBewertung').click(function () {
+            //Hier aufpasssen wenn projekt nicht veröffenlicht muss ../api/WWW...
         $.post("../api/WWWBewertungPortal",
               $("#saveBewertungsForm").serialize(),
               function (value) {

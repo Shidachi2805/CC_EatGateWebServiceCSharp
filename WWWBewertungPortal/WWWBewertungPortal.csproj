@@ -172,6 +172,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Datenbank\Tab_AvartarPhoto.cs">
+      <DependentUpon>WWWBewertungsModell.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Datenbank\Tab_Benutzer.cs">
       <DependentUpon>WWWBewertungsModell.tt</DependentUpon>
     </Compile>
@@ -341,6 +344,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\AddBewertung.cshtml" />
+    <Content Include="Views\Home\AddLokation.cshtml" />
+    <Content Include="Views\Home\PhotoUploads.cshtml" />
     <None Include="Web.Hallo.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

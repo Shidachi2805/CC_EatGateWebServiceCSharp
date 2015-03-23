@@ -25,7 +25,7 @@ namespace WWWBewertungPortal.Services
             string email = (string)data.GetValue("Email");
             string passwort = (string)data.GetValue("Passwort");
             string gender = (string)data.GetValue("Geschlecht");
-            string avartar = (string)data.GetValue("AvartarID");
+            
             try
             {
                 Tab_Benutzer benutzer = new Tab_Benutzer()
@@ -36,7 +36,7 @@ namespace WWWBewertungPortal.Services
                     Email = email,
                     Passwort = passwort,
                     Geschlecht = gender,
-                    AvartarID = avartar,
+                    
                 };
                 // benutzer.Tab_Bewertung = null;
                 // benutzer.Tab_Kommentar = null;
@@ -72,6 +72,30 @@ namespace WWWBewertungPortal.Services
                 bewertung.Tab_Lokation = ThisContainer.Tab_LokationSet.Find(idLok);
                 bewertung.Tab_Benutzer = ThisContainer.Tab_BenutzerSet.Find(idBenutzer);
                 ThisContainer.Tab_BewertungSet.Add(bewertung);
+                ThisContainer.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Fehler JSON: " + ex.ToString());
+                return false;
+            }
+        }
+        public bool SaveLokation(JObject data)
+        {
+            try
+            {
+
+                Tab_Lokation lokation = new Tab_Lokation()
+                {
+                    Name = (string)data.GetValue("Name"),
+                    Adresse = (string)data.GetValue("Adresse"),
+                    Lat = (string)data.GetValue("Lat"),
+                    Lng = (string)data.GetValue("Lng"),
+                    Place_id = (string)data.GetValue("Place_id")
+                };
+                //lokation.Tab_Bewertung = ThisContainer.Tab_BewertungSet.Find(idBewertung);
+                ThisContainer.Tab_LokationSet.Add(lokation);
                 ThisContainer.SaveChanges();
                 return true;
             }
