@@ -19,10 +19,6 @@
       <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
       <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
     </AssociationSet>
-    <AssociationSet Name="Tab_BewertungTab_Lokation_Photo" Association="WWWBewertungsModell.Store.Tab_BewertungTab_Lokation_Photo">
-      <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
-      <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
-    </AssociationSet>
     <AssociationSet Name="Tab_BenutzerTab_Kommentar" Association="WWWBewertungsModell.Store.Tab_BenutzerTab_Kommentar">
       <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
       <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
@@ -30,6 +26,10 @@
     <AssociationSet Name="Tab_BewertungTab_Kommentar" Association="WWWBewertungsModell.Store.Tab_BewertungTab_Kommentar">
       <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
       <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
+    </AssociationSet>
+    <AssociationSet Name="Tab_Lokation_PhotoTab_Lokation" Association="WWWBewertungsModell.Store.Tab_Lokation_PhotoTab_Lokation">
+      <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
+      <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Tab_BenutzerSet">
@@ -61,7 +61,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Tab_Bewertung_Id" Type="int" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tab_LokationId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Tab_KommentarSet">
     <Key>
@@ -108,18 +109,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="Tab_BewertungTab_Lokation_Photo">
-    <End Role="Tab_Bewertung" Type="WWWBewertungsModell.Store.Tab_BewertungSet" Multiplicity="1" />
-    <End Role="Tab_Lokation_Photo" Type="WWWBewertungsModell.Store.Tab_Lokation_PhotoSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Tab_Bewertung">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Tab_Lokation_Photo">
-        <PropertyRef Name="Tab_Bewertung_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="Tab_BenutzerTab_Kommentar">
     <End Role="Tab_Benutzer" Type="WWWBewertungsModell.Store.Tab_BenutzerSet" Multiplicity="1" />
     <End Role="Tab_Kommentar" Type="WWWBewertungsModell.Store.Tab_KommentarSet" Multiplicity="*" />
@@ -144,6 +133,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="Tab_Lokation_PhotoTab_Lokation">
+    <End Role="Tab_Lokation_Photo" Type="WWWBewertungsModell.Store.Tab_Lokation_PhotoSet" Multiplicity="*" />
+    <End Role="Tab_Lokation" Type="WWWBewertungsModell.Store.Tab_LokationSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tab_Lokation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tab_Lokation_Photo">
+        <PropertyRef Name="Tab_LokationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -162,10 +163,6 @@
             <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
             <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
           </AssociationSet>
-          <AssociationSet Name="Tab_BewertungTab_Lokation_Photo" Association="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo">
-            <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
-            <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
-          </AssociationSet>
           <AssociationSet Name="Tab_BenutzerTab_Kommentar" Association="WWWBewertungsModell.Tab_BenutzerTab_Kommentar">
             <End Role="Tab_Benutzer" EntitySet="Tab_BenutzerSet" />
             <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
@@ -173,6 +170,10 @@
           <AssociationSet Name="Tab_BewertungTab_Kommentar" Association="WWWBewertungsModell.Tab_BewertungTab_Kommentar">
             <End Role="Tab_Bewertung" EntitySet="Tab_BewertungSet" />
             <End Role="Tab_Kommentar" EntitySet="Tab_KommentarSet" />
+          </AssociationSet>
+          <AssociationSet Name="Tab_Lokation_PhotoTab_Lokation" Association="WWWBewertungsModell.Tab_Lokation_PhotoTab_Lokation">
+            <End Role="Tab_Lokation_Photo" EntitySet="Tab_Lokation_PhotoSet" />
+            <End Role="Tab_Lokation" EntitySet="Tab_LokationSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tab_Benutzer">
@@ -201,6 +202,7 @@
           <Property Name="Lat" Type="String" Nullable="false" />
           <Property Name="Lng" Type="String" Nullable="false" />
           <Property Name="Place_id" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tab_Lokation_Photo" Relationship="WWWBewertungsModell.Tab_Lokation_PhotoTab_Lokation" FromRole="Tab_Lokation" ToRole="Tab_Lokation_Photo" />
         </EntityType>
         <EntityType Name="Tab_Bewertung">
           <Key>
@@ -213,7 +215,6 @@
           <Property Name="Voting" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Tab_Lokation" Relationship="WWWBewertungsModell.Tab_LokationTab_Bewertung" FromRole="Tab_Bewertung" ToRole="Tab_Lokation" />
           <NavigationProperty Name="Tab_Benutzer" Relationship="WWWBewertungsModell.Tab_BenutzerTab_Bewertung" FromRole="Tab_Bewertung" ToRole="Tab_Benutzer" />
-          <NavigationProperty Name="Tab_Lokation_Photo" Relationship="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" FromRole="Tab_Bewertung" ToRole="Tab_Lokation_Photo" />
           <NavigationProperty Name="Tab_Kommentar" Relationship="WWWBewertungsModell.Tab_BewertungTab_Kommentar" FromRole="Tab_Bewertung" ToRole="Tab_Kommentar" />
         </EntityType>
         <EntityType Name="Tab_Lokation_Photo">
@@ -221,7 +222,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Tab_Bewertung" Relationship="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" FromRole="Tab_Lokation_Photo" ToRole="Tab_Bewertung" />
+          <Property Name="Uri" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Tab_Lokation" Relationship="WWWBewertungsModell.Tab_Lokation_PhotoTab_Lokation" FromRole="Tab_Lokation_Photo" ToRole="Tab_Lokation" />
+          <Property Name="Tab_LokationId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Tab_Kommentar">
           <Key>
@@ -240,10 +243,6 @@
           <End Type="WWWBewertungsModell.Tab_Benutzer" Role="Tab_Benutzer" Multiplicity="1" />
           <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="*" />
         </Association>
-        <Association Name="Tab_BewertungTab_Lokation_Photo">
-          <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="1" />
-          <End Type="WWWBewertungsModell.Tab_Lokation_Photo" Role="Tab_Lokation_Photo" Multiplicity="*" />
-        </Association>
         <Association Name="Tab_BenutzerTab_Kommentar">
           <End Type="WWWBewertungsModell.Tab_Benutzer" Role="Tab_Benutzer" Multiplicity="1" />
           <End Type="WWWBewertungsModell.Tab_Kommentar" Role="Tab_Kommentar" Multiplicity="*" />
@@ -251,6 +250,18 @@
         <Association Name="Tab_BewertungTab_Kommentar">
           <End Type="WWWBewertungsModell.Tab_Bewertung" Role="Tab_Bewertung" Multiplicity="1" />
           <End Type="WWWBewertungsModell.Tab_Kommentar" Role="Tab_Kommentar" Multiplicity="*" />
+        </Association>
+        <Association Name="Tab_Lokation_PhotoTab_Lokation">
+          <End Type="WWWBewertungsModell.Tab_Lokation_Photo" Role="Tab_Lokation_Photo" Multiplicity="*" />
+          <End Type="WWWBewertungsModell.Tab_Lokation" Role="Tab_Lokation" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Tab_Lokation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tab_Lokation_Photo">
+              <PropertyRef Name="Tab_LokationId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -288,6 +299,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(WWWBewertungsModell.Tab_Lokation_Photo)">
         <MappingFragment StoreEntitySet="Tab_Lokation_PhotoSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+          <ScalarProperty Name="Tab_LokationId" ColumnName="Tab_LokationId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -323,14 +336,6 @@
         <ScalarProperty Name="Id" ColumnName="Tab_Benutzer_Id" />
       </EndProperty>
       <EndProperty Name="Tab_Bewertung">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="Tab_BewertungTab_Lokation_Photo" TypeName="WWWBewertungsModell.Tab_BewertungTab_Lokation_Photo" StoreEntitySet="Tab_Lokation_PhotoSet">
-      <EndProperty Name="Tab_Bewertung">
-        <ScalarProperty Name="Id" ColumnName="Tab_Bewertung_Id" />
-      </EndProperty>
-      <EndProperty Name="Tab_Lokation_Photo">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

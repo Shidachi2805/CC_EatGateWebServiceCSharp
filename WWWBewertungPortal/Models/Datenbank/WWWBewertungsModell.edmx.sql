@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/10/2015 06:54:51
+-- Date Created: 03/23/2015 16:31:11
 -- Generated from EDMX file: C:\Users\Shi\cloudcomputing\master\WWWBewertungPortal\Models\Datenbank\WWWBewertungsModell.edmx
 -- --------------------------------------------------
 
@@ -84,7 +84,8 @@ GO
 -- Creating table 'Tab_Lokation_PhotoSet'
 CREATE TABLE [dbo].[Tab_Lokation_PhotoSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Tab_Bewertung_Id] int  NOT NULL
+    [Uri] nvarchar(max)  NOT NULL,
+    [Tab_LokationId] int  NOT NULL
 );
 GO
 
@@ -175,20 +176,6 @@ ON [dbo].[Tab_BewertungSet]
     ([Tab_Benutzer_Id]);
 GO
 
--- Creating foreign key on [Tab_Bewertung_Id] in table 'Tab_Lokation_PhotoSet'
-ALTER TABLE [dbo].[Tab_Lokation_PhotoSet]
-ADD CONSTRAINT [FK_Tab_BewertungTab_Lokation_Photo]
-    FOREIGN KEY ([Tab_Bewertung_Id])
-    REFERENCES [dbo].[Tab_BewertungSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Tab_BewertungTab_Lokation_Photo'
-CREATE INDEX [IX_FK_Tab_BewertungTab_Lokation_Photo]
-ON [dbo].[Tab_Lokation_PhotoSet]
-    ([Tab_Bewertung_Id]);
-GO
-
 -- Creating foreign key on [Tab_Benutzer_Id] in table 'Tab_KommentarSet'
 ALTER TABLE [dbo].[Tab_KommentarSet]
 ADD CONSTRAINT [FK_Tab_BenutzerTab_Kommentar]
@@ -215,6 +202,20 @@ ADD CONSTRAINT [FK_Tab_BewertungTab_Kommentar]
 CREATE INDEX [IX_FK_Tab_BewertungTab_Kommentar]
 ON [dbo].[Tab_KommentarSet]
     ([Tab_Bewertung_Id]);
+GO
+
+-- Creating foreign key on [Tab_LokationId] in table 'Tab_Lokation_PhotoSet'
+ALTER TABLE [dbo].[Tab_Lokation_PhotoSet]
+ADD CONSTRAINT [FK_Tab_Lokation_PhotoTab_Lokation]
+    FOREIGN KEY ([Tab_LokationId])
+    REFERENCES [dbo].[Tab_LokationSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Tab_Lokation_PhotoTab_Lokation'
+CREATE INDEX [IX_FK_Tab_Lokation_PhotoTab_Lokation]
+ON [dbo].[Tab_Lokation_PhotoSet]
+    ([Tab_LokationId]);
 GO
 
 -- --------------------------------------------------

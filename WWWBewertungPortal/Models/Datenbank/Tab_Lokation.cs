@@ -23,6 +23,8 @@ public partial class Tab_Lokation
 
         this.Tab_Bewertung = new HashSet<Tab_Bewertung>();
 
+        this.Tab_Lokation_Photo = new HashSet<Tab_Lokation_Photo>();
+
     }
 
 
@@ -41,6 +43,8 @@ public partial class Tab_Lokation
 
 
     public virtual ICollection<Tab_Bewertung> Tab_Bewertung { get; set; }
+
+    public virtual ICollection<Tab_Lokation_Photo> Tab_Lokation_Photo { get; set; }
 
 }
 

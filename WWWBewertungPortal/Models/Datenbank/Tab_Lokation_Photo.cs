@@ -20,9 +20,13 @@ public partial class Tab_Lokation_Photo
 
     public int Id { get; set; }
 
+    public string Uri { get; set; }
+
+    public int Tab_LokationId { get; set; }
 
 
-    public virtual Tab_Bewertung Tab_Bewertung { get; set; }
+
+    public virtual Tab_Lokation Tab_Lokation { get; set; }
 
 }
 
