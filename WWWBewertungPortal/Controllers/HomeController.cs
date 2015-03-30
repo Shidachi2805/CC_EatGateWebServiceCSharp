@@ -35,7 +35,6 @@ namespace WWWBewertungPortal.Controllers
                 if (!HasFile(Request.Files[upload]))
                     continue;
 
-                //string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uploads");
                 string dirpath = System.Web.HttpContext.Current.Server.MapPath("/") + "uploads";                
                 string filename = System.IO.Path.GetFileName(Request.Files[upload].FileName);              
                 string str_placeID = Request.Files[upload].FileName;
@@ -66,7 +65,9 @@ namespace WWWBewertungPortal.Controllers
                         Uri = dirpathRel,
                         Tab_LokationId = idLok
                     };
+                   
                     ThisContainer.Tab_Lokation_PhotoSet.Add(lokPhoto);
+                    logger.Info("Eintragen im Datenbank beim Tabelle: " + ThisContainer.Tab_Lokation_PhotoSet);
                     ThisContainer.SaveChanges();
                     
                 }
