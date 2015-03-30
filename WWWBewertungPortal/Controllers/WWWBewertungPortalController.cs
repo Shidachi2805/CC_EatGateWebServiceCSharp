@@ -40,29 +40,59 @@ namespace WWWBewertungPortal.Controllers
             return response;
         }
 
+        private HttpResponseMessage bewertungReadPost(JObject data)
+        {
+            JArray job =  this.wwwBewertungPortalRepository.ReadBewertung(data);
+            var response = Request.CreateResponse<JArray>(System.Net.HttpStatusCode.Created, job);
+            return response;
+        }
+        private HttpResponseMessage downloadPhoto(JObject data)
+        {
+            JArray job = this.wwwBewertungPortalRepository.DownloadPhoto(data);
+            var response = Request.CreateResponse<JArray>(System.Net.HttpStatusCode.Created, job);
+            return response;
+        }
         public HttpResponseMessage Post(JObject data)
         {
             string service = (string)data.GetValue("Service");
-
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+            logger.Info("HTTP_POST");
             if (service == null)
             {
                 return null;
             }
             if (service.Equals("AddBewertung"))
             {
+                logger.Info("HTTP_POST AddBewertung");
                 return bewertungPost(data);
             }
             if (service.Equals("AddBenutzer"))
             {
+                logger.Info("HTTP_POST Benutzer");
                 return benutzerPost(data);
             }
             if (service.Equals("AddLokation"))
             {
+                logger.Info("HTTP_POST AddLokation");
                 return lokationPost(data);
+            }
+            if(service.Equals("ReadBewertungen"))
+            {
+                logger.Info("Lesen Von DB");
+                return bewertungReadPost(data);
+            }
+            if (service.Equals("ViewPhotoDownload"))
+            {
+                logger.Info("Holen Von DB");
+                return downloadPhoto(data);
             }
 
             return null;
         }
+
+        
+
+        
 
         //public HttpResponseMessage Post(JObject data)
         //{

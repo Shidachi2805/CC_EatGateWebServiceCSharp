@@ -23,5 +23,12 @@ namespace WWWBewertungPortal
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error()
+        {
+            Exception lastException = Server.GetLastError();
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+            logger.Fatal(lastException);
+        }
     }
 }

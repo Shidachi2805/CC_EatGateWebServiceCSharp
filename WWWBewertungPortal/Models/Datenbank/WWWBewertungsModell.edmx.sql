@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/23/2015 18:04:19
+-- Date Created: 03/28/2015 16:03:38
 -- Generated from EDMX file: H:\Master_2014\Cloud Computing\CSharpWebProjekt\NeuWeb\WWWBewertungPortal\Models\Datenbank\WWWBewertungsModell.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [DB_BewertungPotal_TestLo];
+USE [BewertungsPortal_DB];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
