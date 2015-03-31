@@ -131,30 +131,38 @@ namespace WWWBewertungPortal.Services
         }
         public bool SaveLokation(JObject data)
         {
-            try
+            string placeID = (string)data.GetValue("Place_id");
+            var rowLok = (from row in ThisContainer.Tab_LokationSet
+                          where row.Place_id == placeID
+                          select row);
+            if (rowLok == null || rowLok.Count() == 0)
             {
-                Tab_Lokation lokation = new Tab_Lokation()
+                try
                 {
-                    Name = (string)data.GetValue("Name"),
-                    Adresse = (string)data.GetValue("Adresse"),
-                    Lat = (string)data.GetValue("Lat"),
-                    Lng = (string)data.GetValue("Lng"),
-                    Place_id = (string)data.GetValue("Place_id")
-                };
-                //lokation.Tab_Bewertung = ThisContainer.Tab_BewertungSet.Find(idBewertung);
-                logger.Info("AddLokation " + lokation);
-                ThisContainer.Tab_LokationSet.Add(lokation);
-                logger.Info("Save AddLokation " + ThisContainer.Database.Exists());
-                ThisContainer.SaveChanges();
-                logger.Info("After Change AddLokation " + ThisContainer.Database.Exists());
-                return true;
+                    Tab_Lokation lokation = new Tab_Lokation()
+                    {
+                        Name = (string)data.GetValue("Name"),
+                        Adresse = (string)data.GetValue("Adresse"),
+                        Lat = (string)data.GetValue("Lat"),
+                        Lng = (string)data.GetValue("Lng"),
+                        Place_id = (string)data.GetValue("Place_id")
+                    };
+                    //lokation.Tab_Bewertung = ThisContainer.Tab_BewertungSet.Find(idBewertung);
+                    logger.Info("AddLokation " + lokation);
+                    ThisContainer.Tab_LokationSet.Add(lokation);
+                    logger.Info("Save AddLokation " + ThisContainer.Database.Exists());
+                    ThisContainer.SaveChanges();
+                    logger.Info("After Change AddLokation " + ThisContainer.Database.Exists());
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    logger.Info(ex.ToString());
+                    Console.WriteLine("Fehler JSON: " + ex.ToString());
+                    return false;
+                }
             }
-            catch (Exception ex)
-            {
-                logger.Info(ex.ToString());
-                Console.WriteLine("Fehler JSON: " + ex.ToString());
-                return false;
-            }
+            return false;
         }
 
         public JArray ReadBewertung(JObject data)
